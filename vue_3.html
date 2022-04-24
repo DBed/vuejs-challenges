@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>v-if If Statements</title>
+		<meta charset="UTF-8">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<style>
+			.special {background:yellow; border: 1px dotted #fe0000; padding:30px; display:block; text-align:center;}
+			.important {font-weight:bold; font-size:30px;}
+			.card {
+					border: 1px solid lightblue;
+					border-radius: 5px;
+					box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+					padding: 0.25em;
+					width: 300px;
+					display: flex;
+					font-family: Arial, Helvetica, sans-serif;
+					flex-direction: column;
+					justify-content: center;
+				  }
+			.card:hover{
+				animation: shimmer 2.5s infinite;
+			}
+			.text-content{
+				padding: 0.5em;
+			}
+
+			img {
+				width:100%;
+				height:auto;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+			}
+			h2{
+				text-align: center;
+				background: slategray;
+				border-bottom-left-radius: 5px;
+				border-bottom-right-radius: 5px;
+				padding: 1em;
+				margin: 0px;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+		//step 1: Read Code Above
+		//step 2: Does the profile show up?
+		
+		v-if="boolean_expression"
+		v-else-if="boolean_expression"
+		v-else
+		
+		
+		You can code an if, else if, else statement into your render using the v-if, v-else-if, v-else.
+		Just like in regular programming, v-else has no condition
+		
+		Notice how the "profile" object is null. Reminder that null is Falsey in the boolean context.
+		
+		ASYNCHRONOUS LEARNING EXERCISE
+		1. Use the profile object to store information about yourself {fname, lname, desc, bio, pic}
+		2. Create a figure, figcaption, and image markup which acts as a description for yourself
+			(Something like this https://www.w3schools.com/howto/howto_css_cards.asp)
+		3. Write conditionals if information is missing (i.e. 'no bio available' if bio is blank, generic image if no pic is found)
+		-->
+		<div id="app" class="card">
+			<span v-if="profile.pic">
+				<img v-bind:src = "'images/' + profile.pic"   v-bind:alt = "'A headshot of Dylan'" v-bind:title="'headshot'">
+			</span>
+			<span v-else>
+				<img v-bind:src = "'images/silhouette.png'"  v-bind:alt = "'A generic silhouette headshot'" v-bind:title="'headshot'">
+			</span>
+			<h2 v-if="profile.fname">{{profile.fname}} {{profile.lname}}</h2>
+			<h2 v-else> No name available </h2>
+			<div class="text-content">
+				<h3 v-if="profile.city">From: {{profile.city}}</h3>
+				<h3 v-else>City information unavailable</h3>
+				<p v-if="profile.bio">{{profile.bio}}</p>
+				<p v-else>Bio info here</p>
+			</div>
+		</div>
+		
+		<script>
+			var profileCard = new Vue({
+				el: '#app',
+				data:{
+					profile:{
+						fname: "Dylan",
+						lname: "Bednar",
+						city: "Toronto",
+						bio: "A creative web developer looking for a cool job!",
+						pic: "dylan-face.jpg"
+					}	
+				}	
+			});
+		</script>
+	</body>
+</html>

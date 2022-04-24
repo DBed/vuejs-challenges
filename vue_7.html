@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	
+		<title>J1 Basketball Score Problem</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<style>
+			.formfield{margin-bottom:10px;}
+			.flexBox{display: flex;}
+			.numInput{ width: 35px;}
+			.team_section{ margin: 10px; padding: 5px; border: 1px solid blue;}
+		</style>
+	</head>
+	<body>
+
+	<div id="scoreKeeper">
+		<h1> ScoreKeeper:  Submit number of baskets below!</h1>
+		<div class="flexBox">
+			<div class="team_section">
+				<h2>Apple Team Baskets</h2>
+				<div class="formfield">
+					<label>Free Throws: <label> <input class="numInput" type="number" min="0" v-model="a_free_throw_qty">
+				</div>
+				<div class="formfield">
+					<label>Two Pointers: <label> <input class="numInput" type="number" min="0" v-model="a_two_point_qty">
+				</div>
+				<div class="formfield">
+					<label>Three Pointers: <label> <input class="numInput" type="number" min="0" v-model="a_three_point_qty">
+				</div>
+			</div>
+			<div class="team_section">
+				<h2>Banana Team Baskets</h2>
+				<div class="formfield">
+					<label>Free Throws: <label> <input class="numInput" type="number" min="0" v-model="b_free_throw_qty">
+				</div>
+				<div class="formfield">
+					<label>Two Pointers: <label> <input class="numInput" type="number" min="0" v-model="b_two_point_qty">
+				</div>
+				<div class="formfield">
+					<label>Three Pointers: <label> <input class="numInput" type="number" min="0" v-model="b_three_point_qty">
+				</div>
+			</div>
+		</div>
+		<div id="final_score">
+			<div><label>End the game?:</label><input type="checkbox" v-model="buzzer"></div>
+			<div>Apple final score: {{apple_total}}</div>
+			<div>Banana final score: {{banana_total}}</div>
+			<div v-if="buzzer">
+				<div v-if="apple_win"> Apple Team wins!</div>
+				<div v-elseif="banana_win"> Banana Team Wins!</div>
+				<div v-elseif="tie_game">Tie Game!</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<script>
+		var scoreKeeper = new Vue({
+			el: '#scoreKeeper',
+			data:{
+				buzzer: false,
+				A: false,
+				B: false,
+				T: false,
+				a_free_throw_qty:0,
+				a_two_point_qty:0,
+				a_three_point_qty:0,
+				b_free_throw_qty:0,
+				b_two_point_qty:0,
+				b_three_point_qty:0,
+				free_throw_val:1,
+				two_point_val:2,
+				three_point_val:3
+			},
+			computed:{
+				apple_total:function(){
+					return (this.a_free_throw_qty * this.free_throw_val) + 
+					(this.a_two_point_qty * this.two_point_val) + 
+					(this.a_three_point_qty * this.three_point_val);	
+				},
+				banana_total:function(){
+					return (this.b_free_throw_qty * this.free_throw_val) + 
+					(this.b_two_point_qty* this.two_point_val) + 
+					(this.b_three_point_qty * this.three_point_val);	
+				},
+				apple_win:function(){
+					return this.apple_total > this.banana_total;
+				},
+				banana_win:function(){
+					return this.apple_total < this.banana_total;
+				},
+				tie_game:function(){
+					return this.apple_total == this.banana_total;
+				}
+				// final_result:function(){
+				// 	if(this.apple_total > this.banana_total){
+				// 		 this.A = true;
+				// 		 console.log(this.A);
+				// 	} else if(this.apple_total < this.banana_total){
+				// 		 this.B = true;
+				// 	} else if(this.apple_total == this.banana_total){
+				// 		 this.T = true;
+				// 	}
+				// }  //tried this for a while but couldn't get it to stick!
+			}
+		})
+	</script>
+	</body>
+</html>
+
+<!--Basketball J1 Problem: https://www.cemc.uwaterloo.ca/contests/computing/2019/stage%201/juniorEF.pdf -->
+
+
+<!-- <p>Dog Treats Problem. <a href="https://cemc.uwaterloo.ca/contests/computing/2020/index.html">from the J1 problem hosted by the CCC.</a></p>
+	<div id="app">
+		<div class="formfield">
+			<label>Small Treats: <label> <input v-model="treat_qty_small">
+		</div>
+		<div class="formfield">
+			<label>Medium Treats: <label> <input v-model="treat_qty_medium">
+		</div>
+		<div class="formfield">
+			<label>Large Treats: <label> <input v-model="treat_qty_large">
+		</div>
+		<div id="result">
+			<div><label>show diagnostics:</label><input type="checkbox" v-model="treat_diagnostics"></div>
+			<div v-if="treat_diagnostics">Treat Total: {{treat_total}}</div>
+			<div v-if="treat_diagnostics">Is_Happy: {{is_happy}}</div>
+			<span v-if="is_happy">{{dog_name}} is Happy!</span>
+			<span v-else>{{dog_name}} is sad..</span>
+		</div>
+	</div> -->
+<!--
+
+	
+		v-model will allow you to quickly bind form elements to the data property.
+		Make sure to set a default value!
+		The Computed property can be used like data, except for values that are calculated from data properties.
+		In this example 'treat_total' is computed from data properties, and 'is_happy' is computed from 'treat_total'.
+		
+		ASYNCHRONOUS LEARNING EXERCISE : J1
+		- Find any J1 problem
+		- Imagine an interface that allows the user to enter data on the webpage
+		- Build using v-model and computed properties!
+	
+	-->
+
+
+
+
+			<!-- <div v-if="treat_diagnostics">Treat Total: {{treat_total}}</div>
+			<div v-if="treat_diagnostics">Is_Happy: {{is_happy}}</div>
+			<span v-if="is_happy">{{dog_name}} is Happy!</span>
+			<span v-else>{{dog_name}} is sad..</span> -->
+
+		<!-- <script>
+	var app = new Vue({
+		el: '#app',
+		data:{
+			treat_diagnostics:false,
+			dog_name:"Barley",
+			treat_qty_small:0,
+			treat_qty_medium:0,
+			treat_qty_large:0,
+			treat_value_small:1,
+			treat_value_medium:2,
+			treat_value_large:3
+		},
+		computed:{
+			treat_total:function(){
+				return (this.treat_qty_small * this.treat_value_small) + 
+				(this.treat_qty_medium * this.treat_value_medium) + 
+				(this.treat_qty_large * this.treat_value_large);	
+			},
+			is_happy:function(){
+				
+				return this.treat_total>=10;	
+			}
+		}
+	}); -->
+<!-- 	
+	</script> -->
